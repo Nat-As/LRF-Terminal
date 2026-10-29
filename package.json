@@ -2,7 +2,7 @@
   "name": "lrf-terminal",
   "productName": "LRF Terminal",
   "desktopName": "lrf-terminal.desktop",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Serial terminal for the LRF adapter with DTR/RTS control",
   "author": {
     "name": "Nat-As",
