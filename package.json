@@ -1,0 +1,87 @@
+{
+  "name": "lrf-terminal",
+  "productName": "LRF Terminal",
+  "desktopName": "lrf-terminal.desktop",
+  "version": "1.0.0",
+  "description": "Serial terminal for the LRF adapter with DTR/RTS control",
+  "author": {
+    "name": "Nat-As",
+    "email": "Nat-As@users.noreply.github.com"
+  },
+  "homepage": "https://github.com/Nat-As/LRF-Terminal",
+  "repository": "github:Nat-As/LRF-Terminal",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --publish never"
+  },
+  "build": {
+    "appId": "io.github.nat-as.lrf-terminal",
+    "productName": "LRF Terminal",
+    "files": [
+      "main.js",
+      "preload.js",
+      "src/**/*",
+      "build/icon.png"
+    ],
+    "directories": {
+      "buildResources": "build",
+      "output": "dist"
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "artifactName": "LRF-Terminal-Setup.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "LRF Terminal"
+    },
+    "mac": {
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "universal"
+          ]
+        }
+      ],
+      "category": "public.app-category.developer-tools",
+      "identity": "-",
+      "artifactName": "LRF-Terminal.${ext}"
+    },
+    "linux": {
+      "target": [
+        {
+          "target": "AppImage",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "deb",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "category": "Development",
+      "maintainer": "Nat-As <Nat-As@users.noreply.github.com>",
+      "artifactName": "LRF-Terminal.${ext}",
+      "syncDesktopName": true
+    }
+  },
+  "devDependencies": {
+    "electron": "44.7.2",
+    "electron-builder": "26.17.0"
+  }
+}

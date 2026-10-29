@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LRF Terminal</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="group">
+    <button class="primary" id="connectBtn">Connect</button>
+    <span class="fixed-baud" title="Baud rate is fixed">115200 8N1</span>
+  </div>
+  <div class="sep"></div>
+  <div class="group">
+    <button class="signal high" id="dtrBtn" disabled>DTR → RST<small>released · pin HIGH</small></button>
+    <button class="signal low" id="rtsBtn" disabled>RTS → SWCLK<small>asserted · pin LOW</small></button>
+  </div>
+  <div class="sep"></div>
+  <div class="group">
+    <label title="Right after opening the port, set DTR released (RST HIGH) and RTS asserted (SWCLK LOW)">
+      <input type="checkbox" id="applyDefaults" checked> On connect: RST HIGH, SWCLK LOW
+    </label>
+  </div>
+  <div class="spacer"></div>
+  <div class="group">
+    <label>Enter sends
+      <select id="eol">
+        <option value="\r">CR</option>
+        <option value="\n">LF</option>
+        <option value="\r\n" selected>CR+LF</option>
+      </select>
+    </label>
+    <label><input type="checkbox" id="echo" checked> Local echo</label>
+  </div>
+  <div class="sep"></div>
+  <div class="group">
+    <button id="fontDown" title="Smaller text">A−</button>
+    <button id="fontUp" title="Larger text">A+</button>
+    <button id="clearBtn">Clear</button>
+    <button id="saveBtn">Save log</button>
+  </div>
+</div>
+
+<div id="term" tabindex="0" aria-label="Serial terminal. Click here and type to send."></div>
+
+<div class="statusbar">
+  <span><span class="dot" id="dot"></span><b id="status">Disconnected</b></span>
+  <span>Port: <b id="portInfo">–</b></span>
+  <span>RX: <b id="rxCount">0</b> bytes</span>
+  <span>TX: <b id="txCount">0</b> bytes</span>
+  <span>Click the terminal and type to send. <span id="clipHint">Ctrl+Shift+C / Ctrl+Shift+V</span> to copy / paste.</span>
+</div>
+
+<div class="overlay" id="picker" hidden>
+  <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="pickerTitle">
+    <h2 id="pickerTitle">Select a serial port</h2>
+    <p class="hint">Plug in the LRF adapter. It appears here automatically.</p>
+    <ul class="port-list" id="portList" role="listbox" tabindex="0" aria-labelledby="pickerTitle"></ul>
+    <p class="empty" id="portEmpty">No USB serial ports found.</p>
+    <div class="actions">
+      <label class="show-all"><input type="checkbox" id="showAllPorts"> Show all ports</label>
+      <button id="pickerCancel">Cancel</button>
+      <button class="primary" id="pickerConnect" disabled>Connect</button>
+    </div>
+  </div>
+</div>
+
+<script src="renderer.js"></script>
+</body>
+</html>
